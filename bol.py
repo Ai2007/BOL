@@ -40,7 +40,7 @@ def calculate_weights(row):
     fpg_dev = row['PF'] / row['Avg_FPG']
     mpg_dev = row['MP_basic'] / row['Avg_MPG']
 
-    # Apply penalties for below average DWS and DBPM
+    # Penalties for below average DWS and DBPM
     if dws_dev < 1:
         weight_spg *= dws_dev
         weight_bpg *= dws_dev
@@ -48,12 +48,12 @@ def calculate_weights(row):
         weight_spg *= dbpm_dev
         weight_bpg *= dbpm_dev
 
-    # Apply penalties for above average FPG
+    # penalties for above average FPG
     if fpg_dev > 1:
         weight_spg *= 1 / fpg_dev
         weight_bpg *= 1 / fpg_dev
 
-    # Apply rewards for high MPG with low FPG
+    # rewards for high MPG with low FPG
     if fpg_dev < 1 and mpg_dev > 1:
         weight_spg *= mpg_dev * (1 - fpg_dev)
         weight_bpg *= mpg_dev * (1 - fpg_dev)
